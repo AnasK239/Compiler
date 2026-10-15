@@ -1,3 +1,7 @@
+# Architecture
+<img width="1477" height="830" alt="image" src="https://github.com/user-attachments/assets/6134c2cb-a054-47cc-8ff3-2a7e3dd6fbf0" />
+
+
 # Scanner skeleton
 
 ```text
