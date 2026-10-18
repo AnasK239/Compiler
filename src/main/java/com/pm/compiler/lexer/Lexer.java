@@ -5,12 +5,10 @@ import com.pm.compiler.token.Token;
 /** Owns the source and the current position **/
 public class Lexer {
     private final String source;
-    private final DfaEngine engine;
     private int position;
 
     public Lexer(String source) {
         this.source = source;
-        this.engine = new DfaEngine();
         this.position = 0;
     }
 
