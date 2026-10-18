@@ -8,6 +8,7 @@ public enum TokenType {
     LESSTHAN, EQUAL,
     PLUS, MINUS, MULT, DIV,
     OPENBRACKET, CLOSEDBRACKET,
+    SKIP, // For comments skipping
     NUMBER,
     EOF // Internal marker do not write this to the output file
 }
