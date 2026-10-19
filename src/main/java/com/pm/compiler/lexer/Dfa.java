@@ -14,7 +14,8 @@ public class Dfa {
             "read", TokenType.READ,
             "write", TokenType.WRITE
     );
-    public DfaMatch scan(String source, int start) {
+
+    public static DfaMatch scan(String source, int start) {
 
         int position = start;
         State state = State.START;
@@ -70,7 +71,7 @@ public class Dfa {
                     if (isLetter(c)) {
                         position++;
                     } else {
-                        String lexeme = source.substring(start, position).stripLeading();
+                        String lexeme = source.substring(start, position);
                         tokenType = KEYWORDS.getOrDefault(lexeme, TokenType.IDENTIFIER);
                         state = State.DONE;
                     }
@@ -104,15 +105,16 @@ public class Dfa {
 
         }
     }
-    private boolean isDigit(char c) {
+
+    private static boolean isDigit(char c) {
         return c >= '0' && c <= '9';
     }
 
-    private boolean isLetter(char c) {
+    private static boolean isLetter(char c) {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
 
-    private TokenType getSymbol(char c) {
+    private static TokenType getSymbol(char c) {
         return switch (c) {
             case ';' -> TokenType.SEMICOLON;
             case '<' -> TokenType.LESSTHAN;

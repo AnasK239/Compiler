@@ -1,6 +1,10 @@
 package com.pm.compiler.lexer;
 
 import com.pm.compiler.token.Token;
+import com.pm.compiler.token.TokenType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Owns the source and the current position **/
 public class Lexer {
@@ -14,11 +18,30 @@ public class Lexer {
 
     /** Returns the next token, or EOF once the source is exhausted **/
     public Token getToken() {
-        // TODO: Skip whitespace and return EOF if at the end
-        // TODO: Ask engine.scan(source, position) for the longest match
-        // TODO: If no DFA matches, report an invalid character with its position
-        // TODO: Extract the lexeme, advance position by match.length(), return Token
-        // The lexer alone advances position, DFAs must not change it
-        throw new UnsupportedOperationException("TODO: implement getToken");
+        while(position < source.length() &&
+                Character.isWhitespace(source.charAt(position))){
+            position++;
+        }
+        if (position >= source.length()) {
+            return new Token(TokenType.EOF, "");
+        }
+
+        DfaMatch result = Dfa.scan(source, position);
+        String lexeme = source.substring(position, position +  result.length());
+        position += result.length();
+        return new Token(result.type() , lexeme);
+    }
+
+    public List<Token> tokenize() {
+        List<Token> results = new ArrayList<>();
+
+        while (position < source.length()) {
+            Token token = getToken();
+            if(token.type() == TokenType.SKIP) continue;
+            if(token.type() == TokenType.EOF) break;
+            results.add(token);
+        }
+
+        return results;
     }
 }
